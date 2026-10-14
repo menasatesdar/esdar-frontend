@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة إصدار - للنشر وتطوير الأعمال الثقافية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s ease;
+        }
+        .glass-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+    <!-- شريط التنقل العلوي -->
+    <nav class="sticky top-0 z-50 glass-nav px-8 py-4 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="showSection('home')">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition">إ</div>
+            <span class="text-xl font-black tracking-wider text-slate-900">إصدار <span class="text-emerald-600 text-xs font-semibold">Esdar</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+            <button onclick="showSection('home')" class="hover:text-emerald-600 transition tracking-wide">الرئيسية</button>
+            <button onclick="showSection('about')" class="hover:text-emerald-600 transition tracking-wide">عن إصدار</button>
+            <button onclick="showSection('books')" class="hover:text-emerald-600 transition tracking-wide">الأعمال المنفذة</button>
+            <button onclick="showSection('publishers')" class="hover:text-emerald-600 transition tracking-wide">دور النشر الشريكة</button>
+            <button onclick="showSection('contact')" class="hover:text-emerald-600 transition tracking-wide">اتصل بنا</button>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="openModal('login-modal')" class="text-xs font-bold px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition text-slate-700 tracking-wide shadow-sm">تسجيل الدخول</button>
+            <button onclick="openModal('register-choice-modal')" class="text-xs font-bold px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 transition text-white shadow-lg shadow-emerald-600/25 tracking-wide">حساب جديد</button>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي (أقسام الموقع) -->
+    <main class="flex-grow">
+
+        <!-- 1. الرئيسية -->
+        <section id="home" class="py-28 px-6 max-w-7xl mx-auto text-center space-y-10">
+            <div class="inline-block px-5 py-2 rounded-full bg-emerald-50 border border-emerald-500/20 text-emerald-700 text-xs font-bold tracking-widest shadow-sm">
+                المنصة الاحترافية لإدارة ونشر الكتب والمؤلفات
+            </div>
+            
+            <!-- التعديل الجذري هنا: استخدام flex-col مع مسافة إجبارية gap-6 لمنع التداخل تماماً -->
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 flex flex-col gap-4 md:gap-6 tracking-wide">
+                <span>حقق حلمك وانشر كتابك القادم</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 pb-2">بأعلى معايير الجودة والاحترافية</span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-slate-600 text-base md:text-lg leading-relaxed tracking-wide mt-4">
+                نرافقك في رحلة التأليف والنشر بكل احترافية، من مراجعة الكتاب والتدقيق اللغوي وتصميم الغلاف، وحتى التنسيق الداخلي وإدارة طلبات النشر عبر شبكة دور النشر الشريكة.
+            </p>
+            <div class="flex justify-center gap-5 pt-4">
+                <button onclick="openModal('author-register-modal')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-9 py-4 rounded-2xl shadow-xl shadow-emerald-600/25 transition transform hover:-translate-y-0.5 tracking-wide">سجل كمؤلف وابدأ الآن</button>
+                <button onclick="showSection('books')" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold px-9 py-4 rounded-2xl shadow-sm transition transform hover:-translate-y-0.5 tracking-wide">استعرض الأعمال المنفذة</button>
+            </div>
+        </section>
+
+        <!-- 2. عن إصدار وكيف تعمل المنصة -->
+        <section id="about" class="hidden py-28 px-6 max-w-5xl mx-auto space-y-12">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-wide">عن منصة إصدار</h2>
+                <p class="text-emerald-600 text-sm font-semibold tracking-wide">رؤيتنا في تمكين الكاتب وصناعة المحتوى الثقافي الراقي</p>
+            </div>
+            
+            <div class="glass-card p-10 rounded-3xl space-y-6 text-slate-700 leading-loose text-base md:text-lg tracking-wide border border-slate-200">
+                <p>تعتبر منصة <b>إصدار</b> بيئة رقمية متكاملة تهدف إلى تذليل العقبات أمام الكُتّاب والمؤلفين في العالم العربي، وتقديم الدعم الكامل بأعلى جودة ممكنة واحترافية تامة.</p>
+                <p class="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100">
+                    نحن نوفر لك خيارات مرنة تناسب طموحك؛ حيث نتيح <b>إمكانية النشر الذاتي</b>، أو <b>النشر عن طريق دار نشر عربية سواء كانت مسجلة في الموقع أو دار نشر خارجية</b>.
+                </p>
+                <p>نحرص على توفير أدوات متابعة دقيقة، فواتير إلكترونية شفافة، وتسلسل فني ومالي يضمن جودة الكتاب منذ لحظة تسليم النسخة وحتى صدور الطبعة النهائية الورقية أو الرقمية.</p>
+            </div>
+
+            <!-- كيف تعمل المنصة -->
+            <div class="space-y-8 pt-6">
+                <div class="text-center">
+                    <h3 class="text-2xl font-black text-slate-900 tracking-wide">كيف تعمل منصة إصدار؟</h3>
+                    <p class="text-slate-500 text-xs tracking-wide mt-1">خطوات بسيطة وممنهجة لتحويل فكرتك إلى كتاب منشور</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-8 rounded-2xl space-y-4 text-center border border-slate-200">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto font-black text-lg shadow-sm">1</div>
+                        <h4 class="font-bold text-slate-900 text-base tracking-wide">تقديم الكتاب والطلب</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed tracking-wide">قم بإنشاء حسابك كمؤلف، واختر طريقة النشر المناسبة لك، وارفع ملف الكتاب والغلاف لنبدأ رحلة العمل فوراً.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl space-y-4 text-center border border-slate-200">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto font-black text-lg shadow-sm">2</div>
+                        <h4 class="font-bold text-slate-900 text-base tracking-wide">التسعير والمراجعة الفنية</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed tracking-wide">تراجع الإدارة طلبك، وتصدر الفواتير الشفافة ومتابعة المراحل الفنية والتدقيق وتصميم الغلاف.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl space-y-4 text-center border border-slate-200">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto font-black text-lg shadow-sm">3</div>
+                        <h4 class="font-bold text-slate-900 text-base tracking-wide">الإصدار والنشر النهائي</h4>
+                        <p class="text-slate-600 text-xs leading-relaxed tracking-wide">بعد اكتمال المراحل وسداد الدفعة النهائية، يتم تسليم النسخ النهائية وإغلاق المشروع بنجاح.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. الأعمال التي تمت من خلال المنصة -->
+        <section id="books" class="hidden py-28 px-6 max-w-7xl mx-auto space-y-12">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-wide">الأعمال التي تمت من خلال المنصة</h2>
+                <p class="text-emerald-600 text-sm font-semibold tracking-wide">مكتبة تفخر بنخبة من المؤلفات المنفذة باحترافية عالية</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- كتاب 1 -->
+                <div class="glass-card p-5 rounded-3xl space-y-4 text-center border border-slate-200">
+                    <div class="h-64 rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200 flex items-center justify-center border border-slate-200 shadow-inner">
+                        <span class="text-slate-400 font-bold text-xs tracking-wide">غلاف الكتاب الأول</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base tracking-wide">رواية وهج الذاكرة</h3>
+                    <p class="text-xs text-emerald-600 font-semibold tracking-wide">تأليف: أحمد السوسي</p>
+                </div>
+                <!-- كتاب 2 -->
+                <div class="glass-card p-5 rounded-3xl space-y-4 text-center border border-slate-200">
+                    <div class="h-64 rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200 flex items-center justify-center border border-slate-200 shadow-inner">
+                        <span class="text-slate-400 font-bold text-xs tracking-wide">غلاف الكتاب الثاني</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base tracking-wide">فن الإدارة المعاصرة</h3>
+                    <p class="text-xs text-emerald-600 font-semibold tracking-wide">تأليف: د. سارة العلي</p>
+                </div>
+                <!-- كتاب 3 -->
+                <div class="glass-card p-5 rounded-3xl space-y-4 text-center border border-slate-200">
+                    <div class="h-64 rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200 flex items-center justify-center border border-slate-200 shadow-inner">
+                        <span class="text-slate-400 font-bold text-xs tracking-wide">غلاف الكتاب الثالث</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base tracking-wide">ديوان بستان الروح</h3>
+                    <p class="text-xs text-emerald-600 font-semibold tracking-wide">تأليف: فهد المرزوقي</p>
+                </div>
+                <!-- كتاب 4 -->
+                <div class="glass-card p-5 rounded-3xl space-y-4 text-center border border-slate-200">
+                    <div class="h-64 rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200 flex items-center justify-center border border-slate-200 shadow-inner">
+                        <span class="text-slate-400 font-bold text-xs tracking-wide">غلاف الكتاب الرابع</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base tracking-wide">قصص الصغار المبدعين</h3>
+                    <p class="text-xs text-emerald-600 font-semibold tracking-wide">تأليف: ريم الكبيسي</p>
+                </div>
+            </div>
+        </section>
+
+<!-- 4. دور النشر المشاركة في المنصة (الشريكة للاستعراض) -->
+        <section id="publishers" class="hidden py-28 px-6 max-w-7xl mx-auto space-y-12">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-wide">دور النشر المشاركة في المنصة</h2>
+                <p class="text-emerald-600 text-sm font-semibold tracking-wide">شبكة دور النشر الشريكة المتاحة للتعاون ونشر الأعمال</p>
+            </div>
+            
+            <!-- شبكة عرض دور النشر بالشكل الدائري -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-4xl mx-auto">
+                <!-- دار 1 -->
+                <div class="group cursor-pointer flex flex-col items-center" onclick="openPublisherInfo('دار المعرفة للنشر', 'الإمارات العربية المتحدة', 'الشارقة', 'أ. محمود حمدان')">
+                    <div class="w-28 h-28 rounded-full bg-white border-4 border-slate-100 shadow-md group-hover:border-emerald-400 group-hover:shadow-emerald-500/20 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <span class="text-slate-400 font-bold text-xs">شعار الدار</span>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mt-4 tracking-wide group-hover:text-emerald-600 transition-colors">دار المعرفة للنشر</h3>
+                    <p class="text-xs text-slate-500 tracking-wide mt-1">الإمارات العربية المتحدة</p>
+                </div>
+
+                <!-- دار 2 -->
+                <div class="group cursor-pointer flex flex-col items-center" onclick="openPublisherInfo('دار التنوير الثقافي', 'جمهورية مصر العربية', 'القاهرة', 'د. سامي العلي')">
+                    <div class="w-28 h-28 rounded-full bg-white border-4 border-slate-100 shadow-md group-hover:border-emerald-400 group-hover:shadow-emerald-500/20 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <span class="text-slate-400 font-bold text-xs">شعار الدار</span>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mt-4 tracking-wide group-hover:text-emerald-600 transition-colors">دار التنوير الثقافي</h3>
+                    <p class="text-xs text-slate-500 tracking-wide mt-1">جمهورية مصر العربية</p>
+                </div>
+
+                <!-- دار 3 -->
+                <div class="group cursor-pointer flex flex-col items-center" onclick="openPublisherInfo('مكتبة آفاق للنشر', 'دولة الكويت', 'مدينة الكويت', 'أ. فهد الشمري')">
+                    <div class="w-28 h-28 rounded-full bg-white border-4 border-slate-100 shadow-md group-hover:border-emerald-400 group-hover:shadow-emerald-500/20 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <span class="text-slate-400 font-bold text-xs">شعار الدار</span>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 mt-4 tracking-wide group-hover:text-emerald-600 transition-colors">مكتبة آفاق للنشر</h3>
+                    <p class="text-xs text-slate-500 tracking-wide mt-1">دولة الكويت</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. اتصل بنا -->
+        <section id="contact" class="hidden py-28 px-6 max-w-2xl mx-auto space-y-10">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-wide">اتصل بنا</h2>
+                <p class="text-emerald-600 text-sm font-semibold tracking-wide">فريق الدعم الفني والإداري في خدمتكم على مدار الساعة</p>
+            </div>
+            
+            <!-- ربط النموذج ببريد المنصة عبر FormSubmit -->
+            <form action="https://formsubmit.co/menasatesdar@zohomail.com" method="POST" class="glass-card p-10 rounded-3xl space-y-5 border border-slate-200">
+                
+                <!-- إعدادات مخفية للخدمة لتحسين وصول الرسالة -->
+                <input type="hidden" name="_subject" value="رسالة جديدة من موقع منصة إصدار!">
+                <input type="hidden" name="_template" value="table"> <!-- لعرض الرسالة في الإيميل كجدول مرتب -->
+                <input type="hidden" name="_captcha" value="false"> <!-- لمنع ظهور صفحة التحقق من الروبوت المزعجة -->
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-2 tracking-wide">الاسم الكامل</label>
+                    <!-- تمت إضافة name="الاسم" -->
+                    <input type="text" name="الاسم_الكامل" class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 text-xs tracking-wide" required placeholder="اكتب اسمك...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-2 tracking-wide">البريد الإلكتروني</label>
+                    <!-- تمت إضافة name="البريد_الإلكتروني" -->
+                    <input type="email" name="البريد_الإلكتروني" class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 text-xs tracking-wide" required placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-2 tracking-wide">نص الرسالة</label>
+                    <!-- تمت إضافة name="محتوى_الرسالة" -->
+                    <textarea name="محتوى_الرسالة" rows="4" class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 text-xs tracking-wide" required placeholder="كيف يمكننا مساعدتك؟"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-emerald-600/25 tracking-wide">إرسال الرسالة</button>
+            </form>
+        </section>
+
+        <!-- مساحات لوحات التحكم -->
+        <section id="author-dashboard" class="hidden py-12 px-6 max-w-7xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-wide">لوحة تحكم المؤلف</h2>
+            <div id="author-orders-list" class="space-y-4"></div>
+        </section>
+
+        <section id="publisher-dashboard" class="hidden py-12 px-6 max-w-7xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-wide">لوحة تحكم دار النشر</h2>
+        </section>
+
+        <section id="admin-dashboard" class="hidden py-12 px-6 max-w-7xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 mb-6 tracking-wide">لوحة تحكم الإدارة</h2>
+        </section>
+
+    </main>
+
+<!-- تذييل الموقع (Footer) -->
+    <footer class="bg-white border-t border-slate-200 py-8 px-6 text-center text-xs text-slate-500 space-y-3 tracking-wide">
+        <p>جميع الحقوق محفوظة © 2026 منصة إصدار.</p>
+        <p class="text-slate-700 font-medium">
+            منصة إصدار مملوكة ومدارة بواسطة شركة <a href="https://ionedge.me/" target="_blank" class="text-emerald-600 underline font-bold hover:text-emerald-700">Ion Edge FZE LLC</a>
+        </p>
+    </footer>
+
+    <!-- ================= النوافذ المنبثقة (Modals) ================= -->
+
+    <!-- اختيار نوع الحساب للتسجيل -->
+    <div id="register-choice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full space-y-6 text-center border border-slate-200 shadow-2xl">
+            <h3 class="text-2xl font-black text-slate-900 tracking-wide">اختر نوع الحساب للتسجيل</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="closeModal('register-choice-modal'); openModal('author-register-modal');" class="bg-slate-50 hover:bg-emerald-50 p-6 rounded-2xl border border-slate-200 hover:border-emerald-500/40 transition space-y-2 group">
+                    <span class="text-3xl block">✍️</span>
+                    <span class="font-bold text-slate-800 group-hover:text-emerald-700 text-sm block tracking-wide">تسجيل مؤلف</span>
+                </button>
+                <button onclick="closeModal('register-choice-modal'); openModal('publisher-register-modal');" class="bg-slate-50 hover:bg-teal-50 p-6 rounded-2xl border border-slate-200 hover:border-teal-500/40 transition space-y-2 group">
+                    <span class="text-3xl block">🏢</span>
+                    <span class="font-bold text-slate-800 group-hover:text-teal-700 text-sm block tracking-wide">تسجيل دار نشر</span>
+                </button>
+            </div>
+            <button onclick="closeModal('register-choice-modal')" class="text-slate-500 text-xs hover:text-slate-900 tracking-wide">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- 1. نموذج تسجيل مؤلف جديد -->
+    <div id="author-register-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full space-y-6 border border-slate-200 shadow-2xl my-8">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <h3 class="text-xl font-black text-slate-900 tracking-wide">تسجيل حساب مؤلف جديد</h3>
+                <button onclick="closeModal('author-register-modal')" class="text-slate-400 hover:text-slate-900 font-bold">✕</button>
+            </div>
+            <form onsubmit="handleAuthorRegister(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">اسم المؤلف</label>
+                    <input type="text" id="reg-author-name" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="الاسم الكامل...">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">الدولة</label>
+                    <input type="text" id="reg-author-country" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="الدولة...">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">البريد الإلكتروني</label>
+                    <input type="email" id="reg-author-email" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">رقم جوال يتوفر فيه خدمة واتساب</label>
+                    <input type="tel" id="reg-author-whatsapp" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="+971500000000">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">كلمة السر الخاصة بالحساب</label>
+                    <input type="password" id="reg-author-pass" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/25 mt-2 tracking-wide">إنشاء حساب وإرسال كود التحقق</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. نموذج تسجيل دار نشر جديدة -->
+    <div id="publisher-register-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full space-y-6 border border-slate-200 shadow-2xl my-8">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <h3 class="text-xl font-black text-slate-900 tracking-wide">تسجيل دار نشر جديدة</h3>
+                <button onclick="closeModal('publisher-register-modal')" class="text-slate-400 hover:text-slate-900 font-bold">✕</button>
+            </div>
+            <form onsubmit="handlePublisherRegister(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">اسم الدار</label>
+                    <input type="text" id="reg-pub-name" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="اسم دار النشر...">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">الدولة</label>
+                        <input type="text" id="reg-pub-country" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="الدولة...">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">المدينة</label>
+                        <input type="text" id="reg-pub-city" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="المدينة...">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">البريد الإلكتروني</label>
+                    <input type="email" id="reg-pub-email" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="publisher@example.com">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">اسم المسؤول</label>
+                    <input type="text" id="reg-pub-manager" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="اسم المسؤول...">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">رقم دار النشر</label>
+                        <input type="tel" id="reg-pub-phone" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="رقم الدار...">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">رقم جوال عليه خدمة الواتساب</label>
+                        <input type="tel" id="reg-pub-whatsapp" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="+971500000000">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">كلمة السر الخاصة بالحساب</label>
+                    <input type="password" id="reg-pub-pass" class="w-full px-4 py-3 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-teal-600/25 mt-2 tracking-wide">تسجيل الدار وإرسال كود التحقق</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. نافذة التحقق من البريد الإلكتروني -->
+    <div id="email-verify-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 rounded-3xl max-w-sm w-full space-y-6 text-center border border-slate-200 shadow-2xl">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold shadow-sm">✉️</div>
+            <div class="space-y-2">
+                <h3 class="text-xl font-black text-slate-900 tracking-wide">التحقق من البريد الإلكتروني</h3>
+                <p class="text-xs text-slate-500 tracking-wide">تم إرسال كود التحقق (OTP) إلى بريدك الإلكتروني المسجل.</p>
+            </div>
+            <input type="text" maxlength="6" class="w-full text-center tracking-widest text-xl font-bold py-3.5 rounded-xl glass-input text-slate-900" placeholder="000000">
+            <button onclick="verifyEmailCode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/25 tracking-wide">تأكيد وتفعيل الحساب</button>
+        </div>
+    </div>
+
+    <!-- 4. نافذة تسجيل الدخول -->
+    <div id="login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full space-y-6 border border-slate-200 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <h3 class="text-xl font-black text-slate-900 tracking-wide">تسجيل الدخول للمنصة</h3>
+                <button onclick="closeModal('login-modal')" class="text-slate-400 hover:text-slate-900 font-bold">✕</button>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">البريد الإلكتروني</label>
+                    <input type="email" id="login-email" class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5 tracking-wide">كلمة السر</label>
+                    <input type="password" id="login-pass" class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 tracking-wide" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/25 mt-2 tracking-wide">دخول إلى لوحة التحكم</button>
+            </form>
+        </div>
+    </div>
+<!-- نافذة استعراض بيانات دار النشر (بدون وسائل تواصل) -->
+    <div id="publisher-info-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="glass-card p-8 rounded-3xl max-w-sm w-full space-y-6 text-center border border-slate-200 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <h3 class="text-xl font-black text-slate-900 tracking-wide">بيانات الدار</h3>
+                <button onclick="closeModal('publisher-info-modal')" class="text-slate-400 hover:text-slate-900 font-bold text-lg">✕</button>
+            </div>
+            
+            <div class="space-y-5">
+                <div class="w-24 h-24 mx-auto rounded-full bg-slate-50 border-4 border-slate-200 shadow-sm flex items-center justify-center overflow-hidden">
+                    <span class="text-slate-400 font-bold text-xs">شعار الدار</span>
+                </div>
+                <div>
+                    <h4 id="pub-info-name" class="font-black text-lg text-slate-900 tracking-wide">اسم الدار</h4>
+                    <p id="pub-info-country" class="text-emerald-600 text-sm font-semibold tracking-wide mt-1">الدولة</p>
+                </div>
+                
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-right space-y-4">
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500 mb-1 tracking-wide">المدينة:</span>
+                        <span id="pub-info-city" class="text-sm font-bold text-slate-800 tracking-wide">المدينة</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500 mb-1 tracking-wide">اسم المسؤول:</span>
+                        <span id="pub-info-manager" class="text-sm font-bold text-slate-800 tracking-wide">اسم المسؤول</span>
+                    </div>
+                    <!-- وسائل التواصل مخفية عمداً لضمان التواصل عبر المنصة فقط -->
+                </div>
+                
+                <button onclick="closeModal('publisher-info-modal')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 rounded-xl transition tracking-wide">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- دوال واجهة الموقع الأساسية -->
+    <script>
+        // ضع رابط السيرفر في أعلى السكربت دائماً
+        const API_BASE = 'https://esdar-project.onrender.com/api';
+        function showSection(sectionId) {
+            const sections = ['home', 'about', 'books', 'publishers', 'contact', 'author-dashboard', 'publisher-dashboard', 'admin-dashboard'];
+            sections.forEach(sec => {
+                const el = document.getElementById(sec);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function handleAuthorRegister(event) {
+            event.preventDefault();
+            closeModal('author-register-modal');
+            openModal('email-verify-modal');
+        }
+
+        function handlePublisherRegister(event) {
+            event.preventDefault();
+            closeModal('publisher-register-modal');
+            openModal('email-verify-modal');
+        }
+
+        function verifyEmailCode() {
+            alert('تم تفعيل البريد الإلكتروني بنجاح!');
+            closeModal('email-verify-modal');
+            openModal('login-modal');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('تم تسجيل الدخول بنجاح!');
+            closeModal('login-modal');
+            showSection('author-dashboard');
+        }
+        function openPublisherInfo(name, country, city, manager) {
+            // تعبئة البيانات في النافذة
+            document.getElementById('pub-info-name').innerText = name;
+            document.getElementById('pub-info-country').innerText = country;
+            document.getElementById('pub-info-city').innerText = city;
+            document.getElementById('pub-info-manager').innerText = manager;
+            
+            // فتح النافذة
+            openModal('publisher-info-modal');
+        }
+    </script>
+</body>
+</html>
